@@ -1,4 +1,4 @@
-package com.mspaulo.imageloader.controller;
+package com.mspandrade.imageloader.controller;
 
 import java.io.IOException;
 
@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.mspaulo.imageloader.data.UploadFileResponse;
-import com.mspaulo.imageloader.service.ImageService;
+import com.mspandrade.imageloader.data.UploadFileResponse;
+import com.mspandrade.imageloader.service.ImageService;
 
 import lombok.extern.slf4j.Slf4j;
 

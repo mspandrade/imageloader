@@ -1,4 +1,4 @@
-package com.mspaulo.imageloader.data;
+package com.mspandrade.imageloader.data;
 
 import java.util.Date;
 

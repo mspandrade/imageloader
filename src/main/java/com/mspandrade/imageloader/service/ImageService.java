@@ -1,4 +1,4 @@
-package com.mspaulo.imageloader.service;
+package com.mspandrade.imageloader.service;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 import com.mongodb.BasicDBObject;
 import com.mongodb.gridfs.GridFSDBFile;
 import com.mongodb.gridfs.GridFSFile;
-import com.mspaulo.imageloader.data.UploadFileResponse;
+import com.mspandrade.imageloader.data.UploadFileResponse;
 
 import net.coobird.thumbnailator.Thumbnails;
 

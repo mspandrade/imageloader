@@ -1,9 +1,9 @@
-package com.mspaulo.imageloader.repository;
+package com.mspandrade.imageloader.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import com.mspaulo.imageloader.model.User;
+import com.mspandrade.imageloader.model.User;
 
 import java.util.List;
 

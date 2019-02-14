@@ -1,4 +1,4 @@
-package com.mspaulo.imageloader.type;
+package com.mspandrade.imageloader.type;
 
 public enum RoleType {
 

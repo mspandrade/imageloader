@@ -1,4 +1,4 @@
-package com.mspaulo.imageloader.config.security;
+package com.mspandrade.imageloader.config.security;
 
 import java.util.Arrays;
 

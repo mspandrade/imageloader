@@ -1,4 +1,4 @@
-package com.mspaulo.imageloader.config.security;
+package com.mspandrade.imageloader.config.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,11 +1,11 @@
-package com.mspaulo.imageloader.service;
+package com.mspandrade.imageloader.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.mspaulo.imageloader.model.User;
-import com.mspaulo.imageloader.repository.UserRepository;
+import com.mspandrade.imageloader.model.User;
+import com.mspandrade.imageloader.repository.UserRepository;
 
 @Service
 public class UserService {

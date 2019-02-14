@@ -1,4 +1,4 @@
-package com.mspaulo.imageloader.config.injection;
+package com.mspandrade.imageloader.config.injection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

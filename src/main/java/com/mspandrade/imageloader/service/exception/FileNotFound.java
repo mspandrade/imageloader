@@ -1,4 +1,4 @@
-package com.mspaulo.imageloader.service.exception;
+package com.mspandrade.imageloader.service.exception;
 
 public class FileNotFound extends Exception {
 	

@@ -1,4 +1,4 @@
-package com.mspaulo.imageloader.service;
+package com.mspandrade.imageloader.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,35 +10,55 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
-import com.mspaulo.imageloader.type.RoleType;
+import com.mspandrade.imageloader.config.DefaultUser;
+import com.mspandrade.imageloader.type.RoleType;
 
 
 @Service
 public class ClientUserDetail implements UserDetailsService{
 
 	private UserService userService;
+	private DefaultUser defaultUser;
 	
 	@Autowired
-	public ClientUserDetail(UserService userService) {
+	public ClientUserDetail(UserService userService, DefaultUser defaultUser) {
 		this.userService = userService;
+		this.defaultUser = defaultUser;
 	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) {
-		com.mspaulo.imageloader.model.User user = userService.findByUsername(username);
 		
-		return new User(
-				user.getUsername(), 
-				user.getPassword(), 
-				user.getEnable(),//enabled 
-				true,//accountNonExpired 
-				true,//credentialsNonExpired 
-				true,//accountNonLocked 
-				getAuthories(user) //authorities
-				);
+		UserDetails detail = null;
+		com.mspandrade.imageloader.model.User user = null;
+		
+		if (defaultUser.isEnabled()) {
+			
+			user = defaultUser.instanceDefaultUser();
+		}
+		
+		if (user == null || !user.getUsername().equals(username) ) {	
+			
+			user = userService.findByUsername(username);	
+		}
+		
+		if (user != null) {
+			
+			detail = new User(
+						user.getUsername(), 
+						user.getPassword(), 
+						true,//enabled 
+						true,//accountNonExpired 
+						true,//credentialsNonExpired 
+						true,//accountNonLocked 
+						getAuthories(user) //authorities
+					 );
+		}
+		
+		return detail;
 	}
 	
-	public List<GrantedAuthority> getAuthories(com.mspaulo.imageloader.model.User user) {
+	private List<GrantedAuthority> getAuthories(com.mspandrade.imageloader.model.User user) {
 		
 		List<GrantedAuthority> authories = new ArrayList<>();
 		
@@ -58,7 +78,7 @@ public class ClientUserDetail implements UserDetailsService{
 				public String getAuthority() {
 					return RoleType.CLIENT.name();
 				}
-			});	
+			});
 		}
 		
 		return authories;

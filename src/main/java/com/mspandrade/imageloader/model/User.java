@@ -1,4 +1,4 @@
-package com.mspaulo.imageloader.model;
+package com.mspandrade.imageloader.model;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.annotation.Id;
@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
-import com.mspaulo.imageloader.type.RoleType;
+import com.mspandrade.imageloader.type.RoleType;
 
 import lombok.Data;
 
