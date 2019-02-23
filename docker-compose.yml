@@ -6,17 +6,15 @@ services:
     environment:
       - MONGODB_PASS=0000
     ports:
-      - 27018:27017
-  firebase-gateway:
+      - 27017:27017
+  imageloader:
     image: mspandrade/imageloader
     depends_on:
       - mongodb
     ports:
-      - 8090:8080
+      - 80:8080
     environment:
-      - DATABASE_HOST=mongodb
-      - DATABASE_USER=uFirebaseGateway
-      - DATABASE_PASSWORD=0000
-      - DATABASE_NAME=imageloader  
-      - DATABASE_PORT=3306
-      - JDK_JAVA_OPTIONS='-Dspring.data.mongodb.uri=mongodb://$DATABASE_HOST:$DATABASE_PORT/$DATABASE_NAME -Dspring.data.mongodb.password=$MONGODB_PASS
+      - spring_data_mongodb_uri=mongodb://mongodb:27017/imageloader
+      - spring_data_mongodb_password=0000
+    links:
+      - mongodb

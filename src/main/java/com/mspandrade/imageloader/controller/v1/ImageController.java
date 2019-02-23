@@ -1,4 +1,4 @@
-package com.mspandrade.imageloader.controller;
+package com.mspandrade.imageloader.controller.v1;
 
 import java.io.IOException;
 
@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,20 +22,19 @@ import com.mspandrade.imageloader.service.ImageService;
 
 import lombok.extern.slf4j.Slf4j;
 
-@RestController
-@RequestMapping("api/images")
 @Slf4j
-public class ImagesController {
-	
-	private ImageService imageService;
+@RestController
+@RequestMapping("v1/images")
+public class ImageController {
+
+private ImageService imageService;
 	
 	@Autowired
-	public ImagesController(ImageService imageService) {
+	public ImageController(ImageService imageService) {
 		this.imageService = imageService;
 	}
 	
 	@PostMapping("preview")
-	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<Object> preview(
 			@RequestParam("file") MultipartFile file, 
 			HttpServletResponse httpServletResponse
@@ -62,7 +60,6 @@ public class ImagesController {
 	}
 
 	@PostMapping()
-	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<Object> store(@RequestParam("file") MultipartFile file) {
 		
 		ResponseEntity<Object> response = null;
@@ -83,7 +80,6 @@ public class ImagesController {
 	}
 	
 	@GetMapping("{id}")
-	@PreAuthorize("hasAuthority('CLIENT')")
 	public ResponseEntity<Object> render(@PathVariable String id, HttpServletResponse sltResponse) {
 		
 		ResponseEntity<Object> response = null;
@@ -92,6 +88,37 @@ public class ImagesController {
 						
 			byte[] bytes = StreamUtils.copyToByteArray(imageService.findById(id));
 
+			
+			response = ResponseEntity.ok()
+						  .contentType(MediaType.IMAGE_JPEG)
+						  .body(bytes);
+			
+		} catch (Exception e) {
+			
+			log.error("ERRO AO RECUPERAR ARQUIVO DE ID " + id, e);
+			response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+		return response;
+	}
+	
+	@GetMapping("{id}/resize/{width}/{height}") 
+	public ResponseEntity<Object> renderAndResize(
+			@PathVariable String id,
+			@PathVariable Integer width,
+			@PathVariable Integer height,
+			HttpServletResponse sltResponse
+			) {
+		
+		ResponseEntity<Object> response = null;
+		
+		try {
+						
+			byte[] bytes =	imageService.resize(
+								imageService.findById(id), 
+								width, 
+								height
+							).toByteArray();
 			
 			response = ResponseEntity.ok()
 						  .contentType(MediaType.IMAGE_JPEG)
